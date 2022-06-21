@@ -56,6 +56,7 @@ systemd:
         User=agent
         Group=agent
         TimeoutStopSec=70
+        TimeoutStartSec=1000
         ExecStartPre=mkdir -p /home/agent/nssdb
         ExecStartPre=/bin/rm -f /tmp/container-jenkins.pid /tmp/container-jenkins.ctr-id
         ExecStartPre=sh -c "/bin/podman volume create build || true"
@@ -69,7 +70,7 @@ systemd:
             -v /var/jenkins_token:/secret-file:z \
             -v build:/build \
             -v /home/agent/nssdb:/etc/pki/nssdb \
-            docker.io/gnu3ra/signer:latest \
+            docker.io/gnu3ra/signer:arm64 \
             /lib/jvm/jre-1.8.0/bin/java -jar /usr/share/jenkins/agent.jar \
             -jnlpUrl "https://notjenkins.ballmerlabs.net/computer/signing/jenkins-agent.jnlp" \
             -secret @/secret-file
