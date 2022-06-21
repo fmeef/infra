@@ -4,3 +4,9 @@
 [submodule "docker/droidtest/PCSC"]
 	path = docker/agent_debian/PCSC
 	url = https://github.com/LudovicRousseau/PCSC.git
+[submodule "docker/agent_debian/OpenSC"]
+	path = docker/agent_debian/OpenSC
+	url = https://github.com/OpenSC/OpenSC.git
+[submodule "docker/agent_debian/PCSC"]
+	path = docker/agent_debian/PCSC
+	url = https://github.com/LudovicRousseau/PCSC.git
