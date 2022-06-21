@@ -1,0 +1,58 @@
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDRef5+Yaec9jlW1TK87HvsXa8pwp95pTzNha318JFpu user@host"
+        - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGFXIN93g9Yty/VgtwReIUmwS639McA9SwpKvSEbHmROsJBgH3HaPYFy5lpicJkh2oNHonzQ7oyYW2gGvjY7HHc= user@host"
+    - name: agent
+storage:
+  files:
+    - path: /var/jenkins_token
+      overwrite: false
+      contents:
+        local: ./secret_jenkins_token
+      mode: 0600
+      user:
+        name: agent
+      group:
+        name: agent
+systemd:
+  units:
+    - name: jenkins-agent.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Run jenkins agent
+        Wants=network.target
+        After=network-online.target
+
+        [Service]
+        Restart=on-failure
+        User=agent
+        Group=agent
+        TimeoutStopSec=70
+        TimeoutStartSec=1000
+        ExecStartPre=/bin/rm -f /tmp/container-jenkins.pid /tmp/container-jenkins.ctr-id
+        ExecStartPre=sh -c "/bin/podman volume create build || true"
+        ExecStart=/bin/podman run \
+            --conmon-pidfile /tmp/container-jenkins.pid \
+            --cidfile /tmp/container-jenkins.ctr-id \
+            --cgroups=no-conmon -d --replace \
+            --rm \
+            --read-only \
+            --name=jenkins-agent \
+            -v /var/jenkins_token:/secret-file:z \
+            -v build:/build \
+            docker.io/gnu3ra/signer:latest \
+            /lib/jvm/jre-1.8.0/bin/java -jar /usr/share/jenkins/agent.jar \
+            -jnlpUrl "https://notjenkins.ballmerlabs.net/computer/scatterbrain%%2Dbuild%%2Dnormie/jenkins-agent.jnlp" \
+            -secret @/secret-file
+        ExecStop=/usr/bin/podman stop --ignore --cidfile /tmp/container-jenkins.ctr-id -t 10
+        ExecStopPost=/usr/bin/podman rm --ignore -f --cidfile /tmp/container-jenkins.ctr-id
+        PIDFile=/tmp/container-jenkins.pid
+        Type=forking
+
+        [Install]
+        WantedBy=multi-user.target

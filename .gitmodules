@@ -1,0 +1,6 @@
+[submodule "docker/droidtest/OpenSC"]
+	path = docker/agent_debian/OpenSC
+	url = https://github.com/OpenSC/OpenSC.git
+[submodule "docker/droidtest/PCSC"]
+	path = docker/agent_debian/PCSC
+	url = https://github.com/LudovicRousseau/PCSC.git
