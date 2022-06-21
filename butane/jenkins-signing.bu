@@ -67,7 +67,7 @@ systemd:
             --rm \
             --read-only \
             --name=jenkins-agent \
-            -v /var/jenkins_token:/secret-file:z \
+            -v /var/jenkins_token:/secret-file:Z \
             -v build:/build \
             -v /home/agent/nssdb:/etc/pki/nssdb \
             docker.io/gnu3ra/signer:arm64 \

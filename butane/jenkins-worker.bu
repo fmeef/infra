@@ -43,7 +43,7 @@ systemd:
             --rm \
             --read-only \
             --name=jenkins-agent \
-            -v /var/jenkins_token:/secret-file:z \
+            -v /var/jenkins_token:/secret-file:Z \
             -v build:/build \
             docker.io/gnu3ra/signer:latest \
             /lib/jvm/jre-1.8.0/bin/java -jar /usr/share/jenkins/agent.jar \
