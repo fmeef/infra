@@ -42,7 +42,6 @@ systemd:
             --cidfile /tmp/container-jenkins.ctr-id \
             --cgroups=no-conmon -d --replace \
             --rm \
-            --read-only \
             --name=jenkins-agent \
             -v /var/jenkins_token:/secret-file:Z \
             -v build:/build \
