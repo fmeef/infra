@@ -60,6 +60,7 @@ systemd:
         ExecStartPre=mkdir -p /home/agent/nssdb
         ExecStartPre=/bin/rm -f /tmp/container-jenkins.pid /tmp/container-jenkins.ctr-id
         ExecStartPre=sh -c "/bin/podman volume create build || true"
+        ExecStartPre=sh -c "/bin/podman volume create home || true"
         ExecStart=/bin/podman run \
             --conmon-pidfile /tmp/container-jenkins.pid \
             --cidfile /tmp/container-jenkins.ctr-id \
@@ -69,6 +70,7 @@ systemd:
             --name=jenkins-agent \
             -v /var/jenkins_token:/secret-file:Z \
             -v build:/build \
+            -v home:/root \
             -v /home/agent/nssdb:/etc/pki/nssdb \
             docker.io/gnu3ra/signer:arm64 \
             /lib/jvm/jre-1.8.0/bin/java -jar /usr/share/jenkins/agent.jar \
