@@ -46,6 +46,7 @@ systemd:
             -v /var/jenkins_token:/secret-file:Z \
             -v build:/build \
             -v home:/root \
+            --device /dev/kvm \ 
             docker.io/gnu3ra/signer:latest \
             /lib/jvm/jre-1.8.0/bin/java -jar /usr/share/jenkins/agent.jar \
             -jnlpUrl "https://notjenkins.ballmerlabs.net/computer/scatterbrain%%2Dbuild%%2Dnormie/jenkins-agent.jnlp" \
