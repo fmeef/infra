@@ -1,0 +1,8 @@
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDRef5+Yaec9jlW1TK87HvsXa8pwp95pTzNha318JFpu user@host"
+        - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGFXIN93g9Yty/VgtwReIUmwS639McA9SwpKvSEbHmROsJBgH3HaPYFy5lpicJkh2oNHonzQ7oyYW2gGvjY7HHc= user@host"
