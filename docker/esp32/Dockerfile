@@ -8,6 +8,7 @@ env CARGO_NET_GIT_FETCH_WITH_CLI=true
 RUN curl https://sh.rustup.rs -sSf | \
     sh -s -- --default-toolchain stable -y && \
     rustup component add rust-src
+RUN rustup toolchain install nightly -c rust-src
 
 # Build helix editor
 FROM rustbuild AS helixbuild
