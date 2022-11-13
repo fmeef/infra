@@ -12,12 +12,14 @@ RUN rustup toolchain install nightly -c rust-src
 
 # Build helix editor
 FROM rustbuild AS helixbuild
+ENV COLORTERM=truecolor
+ENV TERM xterm-256color
 RUN git clone https://github.com/helix-editor/helix /opt/helix && \
     cd /opt/helix && \
     cargo install --path helix-term
 
 # Build rust-analyzer binary
-FROM helixbuild AS rustanalyzerbuild        
+FROM helixbuild AS rustanalyzerbuild
 RUN git clone https://github.com/rust-lang/rust-analyzer.git /opt/rust-analyzer && \
     cd /opt/rust-analyzer && \
     cargo xtask install --server
@@ -28,6 +30,8 @@ RUN apt update && apt install -y llvm-dev clang clang-tools build-essential git 
 ENV RUSTUP_HOME=/opt/rustup
 ENV CARGO_HOME=/opt/cargo
 ENV PATH="${PATH}:${CARGO_HOME}/bin"
+ENV COLORTERM=truecolor
+ENV TERM xterm-256color
 COPY --from=rustanalyzerbuild /opt/cargo /opt/cargo
 COPY --from=rustanalyzerbuild /opt/rustup /opt/rustup
 RUN mkdir -p /root/.config/helix
