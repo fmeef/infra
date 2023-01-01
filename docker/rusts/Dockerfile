@@ -17,6 +17,7 @@ ENV TERM xterm-256color
 RUN git clone https://github.com/helix-editor/helix /opt/helix && \
     cd /opt/helix && \
     cargo install --path helix-term && \
+    mkdir -p /root/.config/helix && \
     ln -sf /opt/helix/runtime /root/.config/helix/runtime
 
 # Build rust-analyzer binary
