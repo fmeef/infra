@@ -13,4 +13,4 @@ COPY --from=rustanalyzerbuild /opt/cargo /opt/cargo
 COPY --from=rustanalyzerbuild /opt/rustup /opt/rustup
 RUN mkdir -p /root/.config/helix
 COPY --from=rustanalyzerbuild /opt/helix/runtime /root/.config/helix/runtime
-RUN cargo install cargo-generate ldproxy espflash espmonitor
+RUN cargo install cargo-generate ldproxy espflash espmonitor cargo-espflash
