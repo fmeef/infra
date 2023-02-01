@@ -5,4 +5,5 @@ passwd:
     - name: core
       ssh_authorized_keys:
         - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDRef5+Yaec9jlW1TK87HvsXa8pwp95pTzNha318JFpu user@host"
-        - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGFXIN93g9Yty/VgtwReIUmwS639McA9SwpKvSEbHmROsJBgH3HaPYFy5lpicJkh2oNHonzQ7oyYW2gGvjY7HHc= user@host"
+        - "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBL/HNnkafCjl2dMsEc4tJ594a+RCW+72gOKYcswobZn8ZWX86eIQVNhllMaWZb0440WLDdSBvR1dH/Q9w1DqIb4= lowpriv@mactop"
+        - "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIMSZI0LP0ayMOsc9vleneS55apsTRfA7CAccnH7+MzhAAAAABHNzaDo= user@thinpod"
