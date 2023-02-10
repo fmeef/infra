@@ -25,5 +25,6 @@ COPY config.toml /root/.config/helix/
 FROM helixbuild AS rustanalyzerbuild
 RUN git clone https://github.com/rust-lang/rust-analyzer.git /opt/rust-analyzer && \
     cd /opt/rust-analyzer && \
+    rustup override set nightly &&\
     cargo xtask install --server
  
