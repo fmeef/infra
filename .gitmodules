@@ -10,3 +10,6 @@
 [submodule "docker/agent_debian/PCSC"]
 	path = docker/agent_debian/PCSC
 	url = https://github.com/LudovicRousseau/PCSC.git
+[submodule "docker/flipper/FBT-AARCH64"]
+	path = docker/flipper/FBT-AARCH64
+	url = https://github.com/qqmajikpp/FBT-AARCH64.git

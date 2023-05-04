@@ -1,4 +1,4 @@
-FROM registry.ballmerlabs.net/rusts/aarch64:latest AS rustanalyzerbuild
+FROM registry.ballmerlabs.net/rusts:latest AS rustanalyzerbuild
 
 FROM debian:stable-slim AS pythonbuild
 ARG USER=user
