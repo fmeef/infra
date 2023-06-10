@@ -16,8 +16,8 @@ ENV COLORTERM=truecolor
 ENV TERM xterm-256color
 RUN git clone https://github.com/helix-editor/helix /opt/helix && \
     cd /opt/helix && \
-    rustup override set nightly && \
-    cargo install --path helix-term && \
+    rustup override set stable && \
+    cargo install --locked --path helix-term && cargo clean && \
     mkdir -p /root/.config/helix && \
     ln -sf /opt/helix/runtime /root/.config/helix/runtime
 COPY config.toml /root/.config/helix/

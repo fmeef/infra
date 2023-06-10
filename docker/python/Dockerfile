@@ -3,7 +3,7 @@ FROM registry.ballmerlabs.net/rusts:latest AS rustanalyzerbuild
 FROM debian:stable-slim AS pythonbuild
 ARG USER=user
 ARG UID=10001
-ARG VERSION=3.10.4
+ARG VERSION=3.11
 RUN apt update && apt install -y git curl build-essential libbz2-dev liblzma-dev \
  libreadline-dev libssl-dev zlib1g-dev libffi-dev libsqlite3-dev fish lzma-dev
 
@@ -28,3 +28,5 @@ COPY --from=rustanalyzerbuild /opt/helix/runtime $HOME/.config/helix/runtime
 COPY --from=rustanalyzerbuild /root/.config/helix/config.toml $HOME/.config/helix/config.toml
 ENV COLORTERM=truecolor
 ENV TERM xterm-256color
+WORKDIR /workspace
+CMD [ "fish" ]
