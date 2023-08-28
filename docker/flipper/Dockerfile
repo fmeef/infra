@@ -21,11 +21,12 @@ RUN  addgroup --gid ${GID} user && \
    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 RUN apt  --allow-releaseinfo-change update && \
-apt install -y git curl build-essential libbz2-dev liblzma-dev \
+apt install -y git curl build-essential libbz2-dev liblzma-dev doxygen graphviz \
  libreadline-dev libssl-dev zlib1g-dev libffi-dev libsqlite3-dev fish lzma-dev ripgrep protobuf-compiler
 
 RUN apt install -y libglib2.0-dev libdbus-1-dev python3-dev
 COPY entrypoint.sh /entrypoint.sh
+RUN curl -fsSL https://code-server.dev/install.sh | sh
 USER user
 
 
@@ -38,7 +39,7 @@ RUN pyenv install 3.11 && mkdir -p $HOME/.config/fish && \
  echo 'eval "$(pyenv init -)"' >> $HOME/.bash_profile && \
  echo 'eval "$(pyenv init -)"' >> $HOME/.profile && \
 fish -c "set -Ux PYENV_ROOT $HOME/.pyenv; set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths" && \
-bash -c "source $HOME/.bash_profile && pyenv shell 3.11 && pip install --upgrade ufbt colorlog \
+bash -c "source $HOME/.bash_profile && pyenv shell 3.11 && pip install --upgrade ufbt colorlog pyelftools \
   google-api-python-client protobuf==3.20.0 pillow heatshrink2 pyserial ansi scons" 
 ENV COLORTERM=truecolor
 ENV TERM xterm-256color
