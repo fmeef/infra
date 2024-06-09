@@ -5,7 +5,7 @@ FROM registry.ballmerlabs.net/rusts:latest as rustanalyzerbuild
 FROM  espressif/idf:$IDF_VERSION
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt install -y  build-essential python3 python3-pip python3-virtualenv \
-     git fish clang pkg-config libudev-dev fontconfig libfontconfig1-dev libssl-dev socat
+     git fish clang clangd pkg-config libudev-dev fontconfig libfontconfig1-dev libssl-dev socat screen
 RUN wget https://github.com/Kitware/CMake/releases/download/v3.20.2/cmake-3.20.2.tar.gz && \
 tar -zxvf cmake-3.20.2.tar.gz && \
 cd cmake-3.20.2 && \
@@ -24,6 +24,10 @@ COPY --from=rustanalyzerbuild /opt/rustup /opt/rustup
 COPY --from=rustanalyzerbuild /root/.config/helix /root/.config/helix
 COPY --from=rustanalyzerbuild /opt/helix/runtime /root/.config/helix/runtime
 RUN cargo install --locked cargo-generate ldproxy espflash espmonitor cargo-espflash cargo-edit
+
+RUN curl -fsSL -o get-platformio.py https://raw.githubusercontent.com/platformio/platformio-core-installer/master/get-platformio.py && \
+python3 get-platformio.py
+
 COPY entrypoint.sh /entrypoint.sh
 VOLUME /workspace
 WORKDIR /workspace 

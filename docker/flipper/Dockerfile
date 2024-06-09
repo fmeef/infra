@@ -8,7 +8,8 @@ apt install -y  libssl-dev curl \
   build-essential git python3-dev python3-pip wget sudo clangd socat openocd python3-serial
 
 COPY FBT-AARCH64 /opt/FBT-AARCH64
-RUN echo y | bash /opt/FBT-AARCH64/setup.sh
+RUN echo y | bash /opt/FBT-AARCH64/setup.sh && \
+	sudo ln -s /usr/share/xpack-arm-none-eabi-gcc-10.3.1-2.1/bin/arm-none-eabi-gdb-py3 /usr/bin/arm-none-eabi-gdb-py
 
 RUN  addgroup --gid ${GID} user && \
     adduser --uid ${UID} --gid ${GID} --home /home/user --gecos "" --disabled-password user && \
@@ -27,7 +28,6 @@ apt install -y git curl build-essential libbz2-dev liblzma-dev doxygen graphviz 
 RUN apt install -y libglib2.0-dev libdbus-1-dev python3-dev
 COPY entrypoint.sh /entrypoint.sh
 RUN curl -fsSL https://code-server.dev/install.sh | sh
-USER user
 
 
 WORKDIR /home/${USER}

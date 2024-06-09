@@ -13,3 +13,6 @@
 [submodule "docker/flipper/FBT-AARCH64"]
 	path = docker/flipper/FBT-AARCH64
 	url = https://github.com/qqmajikpp/FBT-AARCH64.git
+[submodule "hetzner/coreos-installer-repo"]
+	path = hetzner/coreos-installer-repo
+	url = https://github.com/coreos/coreos-installer.git

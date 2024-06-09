@@ -1,5 +1,5 @@
 # Temporary builder image for rust toolchain
-FROM debian:stable-slim AS rustbuild
+FROM ubuntu:22.04 AS rustbuild
 RUN apt update && apt install -y git fish curl build-essential libc6-dev libzstd-dev
 ENV RUSTUP_HOME=/opt/rustup
 ENV CARGO_HOME=/opt/cargo
@@ -10,14 +10,18 @@ RUN curl https://sh.rustup.rs -sSf | \
     rustup component add rust-src
 RUN rustup toolchain install nightly -c rust-src && rustup update
 
+FROM alpine:latest AS clone
+RUN apk update && apk add git
+RUN git clone https://github.com/helix-editor/helix /opt/helix &&\
+    cd /opt/helix && git checkout 23.10 && git submodule update --init --recursive
+
 # Build helix editor
 FROM rustbuild AS helixbuild
 ENV COLORTERM=truecolor
 ENV TERM xterm-256color
-RUN git clone https://github.com/helix-editor/helix /opt/helix && \
-    cd /opt/helix && \
-    rustup override set stable && \
-    cargo install --locked --path helix-term  &&\
+COPY --from=clone /opt/helix /opt/helix
+RUN  cd /opt/helix && rustup override set nightly && \
+    cargo install --locked --path helix-term  && \
     cargo clean && \
     mkdir -p /root/.config/helix && \
     ln -sf /opt/helix/runtime /root/.config/helix/runtime
@@ -26,7 +30,8 @@ COPY config.toml /root/.config/helix/
 FROM helixbuild AS rustanalyzerbuild
 RUN git clone https://github.com/rust-lang/rust-analyzer.git /opt/rust-analyzer && \
     cd /opt/rust-analyzer && \
-    rustup override set stable && \
+    rustup override set nightly && \
+    rustup override set nightly &&\
     cargo xtask install --server 
 
 FROM rustanalyzerbuild AS lib
@@ -38,8 +43,7 @@ ENV HOME=/home/user
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt update && apt install -y  libssl-dev \
   build-essential git libcurl4-openssl-dev pkg-config fish libdbus-1-dev pkg-config \
-  libnftnl-dev libprotobuf-dev protobuf-compiler libmnl-dev clang libdbus-glib-1-dev dbus bluez \
-    bluez-tools libbluetooth-dev 
+  libnftnl-dev libprotobuf-dev protobuf-compiler libmnl-dev clang
 RUN update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100 && \
 update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++ 100
 RUN  addgroup --gid ${GID} user && \

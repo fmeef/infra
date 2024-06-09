@@ -1,0 +1,34 @@
+# Temporary builder image for rust toolchain
+FROM alpine:edge AS rustbuild
+RUN apk update && apk add git fish curl openssl-dev alpine-sdk
+ENV RUSTUP_HOME=/opt/rustup
+ENV CARGO_HOME=/opt/cargo
+ENV PATH="${PATH}:${CARGO_HOME}/bin"
+env CARGO_NET_GIT_FETCH_WITH_CLI=true
+RUN curl https://sh.rustup.rs -sSf | \
+    sh -s -- --default-toolchain stable -y && \
+    rustup component add rust-src
+RUN rustup toolchain install nightly -c rust-src && rustup update
+
+# Build helix editor
+FROM rustbuild AS helixbuild
+ENV COLORTERM=truecolor
+ENV TERM xterm-256color
+#COPY alpine.toml /root/.cargo/config.toml
+RUN git clone https://github.com/helix-editor/helix /opt/helix && \
+    cd /opt/helix && \
+    rustup override set nightly && \
+    CFLAGS=-mno-outline-atomics RUSTFLAGS='-C target-feature=+crt-static' cargo install --locked --path helix-term  &&\
+    cargo clean && \
+    mkdir -p /root/.config/helix && \
+    ln -sf /opt/helix/runtime /root/.config/helix/runtime
+COPY config.toml /root/.config/helix/
+# Build rust-analyzer binary
+FROM helixbuild AS rustanalyzerbuild
+RUN git clone https://github.com/rust-lang/rust-analyzer.git /opt/rust-analyzer && \
+    cd /opt/rust-analyzer && \
+    rustup override set nightly && \
+    rustup override set nightly &&\
+    RUSTFLAGS='-C target-feature=+crt-static' cargo xtask install --server 
+
+FROM rustanalyzerbuild AS lib
