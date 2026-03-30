@@ -1,0 +1,10 @@
+[editor.lsp]
+display-signature-help-docs = false
+
+[editor]
+mouse = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"

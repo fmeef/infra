@@ -1,1 +1,6 @@
 **/secret_*
+**/*.tfvars
+**/*.tfstate
+**/*.terraform*
+/nix/macos/config.nix
+
