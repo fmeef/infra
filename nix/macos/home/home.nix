@@ -11,12 +11,12 @@
     master.vscode
     helix
     taskwarrior3
-    yt-dlp
-    mpv
+    master.yt-dlp
+    master.mpv
     unstable.tor
     unstable.torsocks
-    ollama
-    (python313.withPackages (ppkgs: with ppkgs; [    
+    master.ollama
+    (master.python313.withPackages (ppkgs: with ppkgs; [    
       numpy
       scipy
       matplotlib
