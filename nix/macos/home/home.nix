@@ -18,14 +18,16 @@
                       inherit pname version;
                       src = "${repo}/catnip";
                       doCheck = false;
+                          dontUsePytestCheck = true;
+    dontUsePythonImportsCheck = true;
                       pyproject = true;
                       dontCheckRuntimeDeps = true;
                       build-system = [ setuptools ];
-                      propagatedBuildInputs = with pkgs.python313Packages; [
+                      propagatedBuildInputs = with unstable.python313Packages; [
                         click
                         cryptography
                         intelhex
-                        matplotlib
+                        # matplotlib
                         numpy
                         pyserial
                         pyusb
@@ -47,13 +49,15 @@
                     src = "${repo}/catsnifferTUI";
                     doCheck = false;
                     pyproject = false;
+                        dontUsePytestCheck = true;
+    dontUsePythonImportsCheck = true;
                     dontCheckRuntimeDeps = true;
                     build-system = [ ];
-                    propagatedBuildInputs = with pkgs.python313Packages; [
+                    propagatedBuildInputs = with unstable.python313Packages; [
                       click
                       cryptography
                       intelhex
-                      matplotlib
+                      # matplotlib
                       numpy
                       pyserial
                       pyusb
@@ -71,14 +75,23 @@
     master.vscode
     helix
     taskwarrior3
-    master.yt-dlp
-    master.mpv
+    unstable.yt-dlp
+    unstable.mpv
     unstable.tor
     unstable.torsocks
     master.ollama
     ripgrep
+    cmake
+    pkg-config
+    ninja
+    wget
+    git
+    automake
+    gnutar
+    nasm
+    meson 
     # (unstable.withPackages(ps: [ catnip ]))
-    (unstable.python313.withPackages (ppkgs: with ppkgs; [    
+    (master.python313.withPackages (ppkgs: with ppkgs; [    
       numpy
       scipy
       matplotlib
@@ -88,10 +101,10 @@
       catnip
       catsnifferTUI
       ipython
-      llama-index-llms-ollama
+      # llama-index-llms-ollama
   ]))
 
-    gnuradionix.basedpyright
+    master.basedpyright
     # master.libiio
     # unstable.python313Packages.libiio
     # unstable.python312Packages.libiio
