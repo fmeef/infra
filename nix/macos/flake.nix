@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-gnuradio.url = "github:NixOS/nixpkgs?rev=95b4c71e9b4f4a977250879ec38628a6770665c8";
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager/master";
@@ -18,6 +19,7 @@
       nix-darwin,
       nixpkgs-unstable,
       nixpkgs-master,
+      nixpkgs-gnuradio,
       nixpkgs,
       ...
     }:
@@ -37,6 +39,7 @@
               config = {
                 android_sdk.accept_license = true;
                 allowUnfree = true;
+                allowUnsupportedSystem = true;
               };
             };
 
@@ -55,8 +58,18 @@
               config = {
                 android_sdk.accept_license = true;
                 allowUnfree = true;
+                allowUnsupportedSystem = true;
               };
             };
+            gnuradionix = import nixpkgs-gnuradio {
+              inherit system;
+              config = {
+                android_sdk.accept_license = true;
+                allowUnfree = true;
+                allowUnsupportedSystem = true;
+              };
+            };
+
             config = import ./config.nix {};
           in
           [
@@ -78,6 +91,7 @@
                   stable = stable;
                   unstable = unstable;
                   master = master;
+                  gnuradionix = gnuradionix;
                 }
               );
 

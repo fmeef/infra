@@ -23,7 +23,7 @@ RUN  addgroup --gid ${GID} user && \
 
 RUN apt  --allow-releaseinfo-change update && \
 apt install -y git curl build-essential libbz2-dev liblzma-dev doxygen graphviz \
- libreadline-dev libssl-dev zlib1g-dev libffi-dev libsqlite3-dev fish lzma-dev ripgrep protobuf-compiler
+ libreadline-dev libssl-dev zlib1g-dev libffi-dev libsqlite3-dev fish ripgrep protobuf-compiler
 
 RUN apt install -y libglib2.0-dev libdbus-1-dev python3-dev
 COPY entrypoint.sh /entrypoint.sh
