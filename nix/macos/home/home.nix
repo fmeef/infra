@@ -89,7 +89,11 @@
     automake
     gnutar
     nasm
-    meson 
+    meson
+    socat
+    cocoapods
+    rsync
+    unstable.nmap 
     # (unstable.withPackages(ps: [ catnip ]))
     (master.python313.withPackages (ppkgs: with ppkgs; [    
       numpy
