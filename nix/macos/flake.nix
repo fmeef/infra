@@ -2,14 +2,14 @@
   description = "Nix configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     nixpkgs-gnuradio.url = "github:NixOS/nixpkgs?rev=95b4c71e9b4f4a977250879ec38628a6770665c8";
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    home-manager.url = "github:nix-community/home-manager/master";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    home-manager.url = "github:nix-community/home-manager?ref=release-26.05";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
