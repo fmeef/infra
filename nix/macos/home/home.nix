@@ -69,9 +69,10 @@
                     ];
               };
     in with stable; [
-    master.zed-editor
+    unstable.zed-editor
     nil
     nixd
+    virt-manager
     master.vscode
     helix
     taskwarrior3

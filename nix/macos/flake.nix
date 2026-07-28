@@ -8,8 +8,8 @@
     nixpkgs-gnuradio.url = "github:NixOS/nixpkgs?rev=95b4c71e9b4f4a977250879ec38628a6770665c8";
     nix-darwin.url = "github:lnl7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    home-manager.url = "github:nix-community/home-manager?ref=release-26.05";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager/master";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   outputs =
