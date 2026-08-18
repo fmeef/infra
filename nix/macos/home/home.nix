@@ -72,9 +72,12 @@
     unstable.zed-editor
     nil
     nixd
+    esptool
     virt-manager
+    platformio
     master.vscode
     helix
+    gdb
     taskwarrior3
     unstable.yt-dlp
     unstable.mpv
@@ -93,6 +96,7 @@
     meson
     socat
     cocoapods
+    android-tools
     rsync
     unstable.nmap 
     # (unstable.withPackages(ps: [ catnip ]))
@@ -106,6 +110,7 @@
       catnip
       catsnifferTUI
       ipython
+      platformio
       # llama-index-llms-ollama
   ]))
 
