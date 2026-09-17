@@ -90,7 +90,9 @@
     ninja
     wget
     git
+    # ecryptfs
     automake
+    gocryptfs
     gnutar
     nasm
     meson
