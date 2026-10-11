@@ -79,6 +79,9 @@
               environment.systemPackages = with unstable; [
                 gnupg
                 openocd
+                automake
+                autoconf
+                libtool
               ];
             }
             {

@@ -97,6 +97,9 @@
     nasm
     meson
     socat
+    automake
+    autoconf
+    libtool
     cocoapods
     android-tools
     rsync
