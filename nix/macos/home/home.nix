@@ -13,7 +13,7 @@
                         hash = "sha256-UId98HOLT8sx8Yj1QJaweS73F4/KfcgMR7TrrNycE/w=";
                   };   
                   catnip =
-                    with unstable.python313Packages;
+                    with unstable.python314Packages;
                     buildPythonPackage rec {
                       inherit pname version;
                       src = "${repo}/catnip";
@@ -23,7 +23,7 @@
                       pyproject = true;
                       dontCheckRuntimeDeps = true;
                       build-system = [ setuptools ];
-                      propagatedBuildInputs = with unstable.python313Packages; [
+                      propagatedBuildInputs = with unstable.python314Packages; [
                         click
                         cryptography
                         intelhex
@@ -43,7 +43,7 @@
                   pname = "catsnifferTUI";
                   version = "v3.3.1.0";
                 in
-                  with unstable.python313Packages;
+                  with unstable.python314Packages;
                   buildPythonPackage rec {
                     inherit pname version;
                     src = "${repo}/catsnifferTUI";
@@ -53,7 +53,7 @@
     dontUsePythonImportsCheck = true;
                     dontCheckRuntimeDeps = true;
                     build-system = [ ];
-                    propagatedBuildInputs = with unstable.python313Packages; [
+                    propagatedBuildInputs = with unstable.python314Packages; [
                       click
                       cryptography
                       intelhex
@@ -82,6 +82,7 @@
     unstable.yt-dlp
     unstable.mpv
     unstable.tor
+    unstable.ffmpeg
     unstable.torsocks
     master.ollama
     ripgrep
@@ -89,7 +90,7 @@
     pkg-config
     ninja
     wget
-    git
+    unstable.git
     # ecryptfs
     automake
     gocryptfs
@@ -97,15 +98,12 @@
     nasm
     meson
     socat
-    automake
-    autoconf
-    libtool
     cocoapods
     android-tools
     rsync
     unstable.nmap 
     # (unstable.withPackages(ps: [ catnip ]))
-    (master.python313.withPackages (ppkgs: with ppkgs; [    
+    (unstable.python314.withPackages (ppkgs: with ppkgs; [    
       numpy
       scipy
       matplotlib
@@ -119,20 +117,20 @@
       # llama-index-llms-ollama
   ]))
 
-    master.basedpyright
+    # master.basedpyright
     # master.libiio
-    # unstable.python313Packages.libiio
+    # unstable.python314Packages.libiio
     # unstable.python312Packages.libiio
     # unstable.gnuradioMinimal
 
     # (master.libbladeRF.overrideAttrs (old: { doChek = false; }))
-    (gnuradionix.gnuradio.override {
-      extraPackages = with gnuradionix.gnuradioPackages; [
-        osmosdr
-        bladeRF
-       # limesdr
-      ];
-    })
+    # (gnuradionix.gnuradio.override {
+    #   extraPackages = with gnuradionix.gnuradioPackages; [
+    #     osmosdr
+    #     bladeRF
+    #    # limesdr
+    #   ];
+    # })
     # unstable.gnuradioPackages.bladeRF
     # unstable.gnuradioPackages.osmosdr
   ];
